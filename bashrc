@@ -114,6 +114,23 @@ fi
 
 PS1='\[\033[01;32m\]\u\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\$ '
 
-for s in $(find ~/workspace -type d | grep "/scripts"); do
-    export PATH=$s:$PATH
-done
+export GADGETRON_HOME=/usr/local
+export ISMRMRD_HOME=/usr/local
+export PATH=$PATH:/usr/local/cuda/bin;$GADGETRON_HOME/bin:$ISMRMRD_HOME/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:$ISMRMRD_HOME/lib:$GADGETRON_HOME/lib
+export LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/anaconda/etc/profile.d/conda.sh" ]; then
+        . "/anaconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/anaconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
